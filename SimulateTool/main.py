@@ -400,7 +400,7 @@ def fileConvert2():
     pointLength = infoText44.get()
     configRows = skutext49.get()
     configCols = skutext410.get()
-    mostTheta = skutext411.get()
+    mostTheta = float(skutext411.get())
     firstHeight = skutext412.get()
     comHeight = skutext413.get()
     flowNums = skutext414.get()
@@ -583,9 +583,9 @@ skutext18.grid(column=1, row=22)
 ttk.Label(monty52, width=18, text="是否正常充放电:").grid(column=0,
                                                    row=23,
                                                    sticky='W')
-skutext22 = tkinter.Entry(monty52, width=18)
-skutext22.insert(0, 'yes')
-skutext22.grid(column=1, row=23)
+skutext26 = tkinter.Entry(monty52, width=18)
+skutext26.insert(0, 'yes')
+skutext26.grid(column=1, row=23)
 
 ttk.Label(monty52, width=18, text="浮动范围的步长:").grid(column=0,
                                                    row=24,
@@ -598,14 +598,14 @@ ttk.Label(monty53, width=18, text="操作台休息开始时间点").grid(column=
                                                      row=14,
                                                      sticky='W')
 skutext24 = tkinter.Entry(monty53, width=18)
-skutext24.insert(0, '[12,19]')
+skutext24.insert(0, '0, 12, 18')
 skutext24.grid(column=1, row=14)
 
 ttk.Label(monty53, width=18, text="操作台休息结束时间点").grid(column=0,
                                                      row=15,
                                                      sticky='W')
 skutext25 = tkinter.Entry(monty53, width=18)
-skutext25.insert(0, '[13.5,20]')
+skutext25.insert(0, '7,13.5,19')
 skutext25.grid(column=1, row=15)
 
 
@@ -630,11 +630,11 @@ def clickMe4():
     pickItem = float(skutext18.get())
     slotNum = int(skutext19.get())
     slotLimit = int(skutext20.get())
-    kubotIfCharge = skutext22.get()
+    kubotIfCharge = str(skutext26.get())
     stationConfig = [stationNums, slotNum, slotLimit]
     stationList = [
-        stationNums, modelType, stationBreakBegin, stationBreakEnd, fixedTime,
-        fixedPick, fixedScann, minPick, payOrder, pickItem, stationConfig
+        stationNums, modelType, fixedTime, fixedPick, fixedScann,
+        minPick, payOrder, pickItem, stationConfig, stationBreakBegin, stationBreakEnd,
     ]  # 工作站参数
 
     yamlUpdate(curPath, configName, tarPath, kubotNums, trayNums,

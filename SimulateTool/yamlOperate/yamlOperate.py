@@ -5,8 +5,16 @@ import yaml
 
 from util.updateFile import copy_dirs, kubotFile, del_file, stationFile
 
+# 简单转格式
 
-def yamlUpdate(curPath, configName, tarPath, kubotNums, trayNums,stationBreakBegin, stationBreakEnd,  fluctuateNums, fluctuateNumsStep,robotTheta, kubotIfCharge):
+
+def stringListConvertIntoInt(listdemo):
+    listdemo = listdemo.split(',')
+    listdemo = [float(i) for i in listdemo]
+    return listdemo
+
+
+def yamlUpdate(curPath, configName, tarPath, kubotNums, trayNums, fluctuateNums, fluctuateNumsStep, robotTheta, stationList, kubotIfCharge):
     # 复制配置文件
     cpPath = curPath + '2'
     copy_dirs(curPath, cpPath)
@@ -28,11 +36,11 @@ def yamlUpdate(curPath, configName, tarPath, kubotNums, trayNums,stationBreakBeg
     stationNumList = []
     for j in range(1, stationNs):
         stationNumList.append(j)
-    stationNumDict = {1:stationNumList}
+    stationNumDict = {1: stationNumList}
 
     # 生成机器人数量遍历文件
     if kubotMin > 0 and kubotMax >= kubotMin:
-        for i in range(kubotMin, kubotMax,fluctuateNumsStep):
+        for i in range(kubotMin, kubotMax, fluctuateNumsStep):
             # 创建遍历文件夹
             folderName = '/robotNum_' + str(i)
             dataPath = tarPath + folderName
@@ -46,11 +54,11 @@ def yamlUpdate(curPath, configName, tarPath, kubotNums, trayNums,stationBreakBeg
             d['kTestKubots'] = i
             d['Kubot Tray Number'] = trayNums
 
-            #修改機器人是否正常充放電
+            # 修改機器人是否正常充放電
             if kubotIfCharge == 'yes':
-              pass
+                pass
             else:
-              d['kMaxWorkingSecond'] = 2160099999999
+                d['kMaxWorkingSecond'] = 2160099999999
 
             # 修改操作台参数
             d['Bin Picking Model Type'] = stationList[1]
@@ -64,9 +72,17 @@ def yamlUpdate(curPath, configName, tarPath, kubotNums, trayNums,stationBreakBeg
             d['Pay Order Coefficient'] = stationList[6]
             d['Pick Item Number Coefficient'] = stationList[7]
 
-            #操作台休息是時間            
-            d['Operator Break Starting Time'] = [i * 3600 for i in stationBreakBegin]
-            d['Operator Break Starting Time'] = [i * 3600 for i in stationBreakEnd]
+            # 操作台休息是時間
+            if not d.__contains__('Operator Break Starting Time'):
+                d.update({'Operator Break Starting Time': [
+                    i * 3600 for i in stringListConvertIntoInt(stationList[9])]})
+                d.update({'Operator Break Ending Time': [
+                    i * 3600 for i in stringListConvertIntoInt(stationList[10])]})
+            else:
+                d['Operator Break Starting Time'] = [
+                    i * 3600 for i in stringListConvertIntoInt(stationList[9])]
+                d['Operator Break Ending Time'] = [
+                    i * 3600 for i in stringListConvertIntoInt(stationList[10])]
 
             # 更新配置文件
             configFileName = folderName[1:] + '.yaml'
@@ -85,7 +101,9 @@ def yamlUpdate(curPath, configName, tarPath, kubotNums, trayNums,stationBreakBeg
 
     del_file(cpPath)
 
+
 if __name__ == "__main__":
+    # configData
     curPath = os.getcwd() + '\configData'   # 所有配置文件（包括地图、config、data）
 
     # 机器人参数
@@ -107,10 +125,17 @@ if __name__ == "__main__":
     slotNum = 30
     slotLimit = 0
     stationConfig = [stationNums, slotNum, slotLimit]
-    stationList = [stationNums, modelType, fixedTime, fixedPick, fixedScann, minPick, payOrder, pickItem, stationConfig]
+    stationList = [stationNums, modelType, fixedTime, fixedPick,
+                   fixedScann, minPick, payOrder, pickItem, stationConfig]
     kubotIfCharge = 'yes'
+    configName = ''
+    tarPath = ''
+    stationBreakBegin = ''
+    stationBreakEnd = ''
+    fluctuateNumsStep = ''
     # 配置修改带联动
-    yamlUpdate(curPath, kubotNums, trayNums, fluctuateNums, stationList,kubotIfCharge)
+    yamlUpdate(curPath, configName, tarPath, kubotNums, trayNums, stationBreakBegin,
+               stationBreakEnd,  fluctuateNums, fluctuateNumsStep, robotTheta, kubotIfCharge)
 
     # 机器人文件修改
     # kubotFile(curPath, kubotNums)
