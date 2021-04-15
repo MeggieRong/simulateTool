@@ -1,4 +1,4 @@
-#coding:utf-8
+# coding:utf-8
 
 import os
 
@@ -26,7 +26,8 @@ def pointToLine(basicMap, othersList):
     channelDict = creatChannel(csvPath, channelType, pointLength)
 
     # 生成adjacencylist
-    adjacencyList, pInfo = creatAdjacencyList(csvPath, channelType, pointLength, yNoHorizontal, xNoVertical, ypNoHorizontal, xpNoVertical)
+    adjacencyList, pInfo = creatAdjacencyList(
+        csvPath, channelType, pointLength, yNoHorizontal, xNoVertical, ypNoHorizontal, xpNoVertical)
 
     # 写 adjaceney 和 channelEE 文件
     writerFiles(channelDict, adjacencyList, curpath)
@@ -42,9 +43,9 @@ def pointToLine(basicMap, othersList):
     writeConfig(curpath, rows, cols)
 
     # 写rest_station.json文件
-    rtTheta = othersList[2]
+    # rtTheta = othersList[2]
     xyDict = chargeListFile(sourcePath)
-    writeCharge(curpath, xyDict, rtTheta)
+    writeCharge(curpath, xyDict)
 
     # 写locations.csv文件
     locDir = basicMap[1]
@@ -65,6 +66,7 @@ def pointToLine(basicMap, othersList):
 
     return pointInfo
 
+
 if __name__ == '__main__':
     # sourceFile = 'E:\业务测试\项目需求\Youyiku地图\828地图数据\优衣库点位(模拟版）(1).xls'
     # sourceFile = 'E:\业务测试\项目需求\武汉新宁\地图坐标\SMT区域V6.1 for SIMU.csv'
@@ -73,7 +75,8 @@ if __name__ == '__main__':
     channelType = 'y'
     pointLength = 1.5
     yNoHorizontal = [56.63]
-    xNoVertical = [1.58, 2.78, 6.31, 7.22, 9.2, 11.56, 13.93, 16.29, 18.66, 21.02, 23.39, 25.75, 28.12, 32.85]
+    xNoVertical = [1.58, 2.78, 6.31, 7.22, 9.2, 11.56, 13.93,
+                   16.29, 18.66, 21.02, 23.39, 25.75, 28.12, 32.85]
     # xNoVertical = []
     ypNoHorizontal = []
     xpNoVertical = []
@@ -91,5 +94,6 @@ if __name__ == '__main__':
 
     basicMap = [sourceFile, channelType, targetFile, pointLength, yNoHorizontal, xNoVertical, ypNoHorizontal,
                 xpNoVertical]
-    othersList = [configRows, configCols, mostTheta, firstHeight, comHeight, flowNums, locations]
+    othersList = [configRows, configCols, mostTheta,
+                  firstHeight, comHeight, flowNums, locations]
     pointToLine(basicMap, othersList)

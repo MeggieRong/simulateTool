@@ -609,25 +609,25 @@ skutext25.insert(0, '7,13.5,19')
 skutext25.grid(column=1, row=15)
 
 
-ttk.Label(monty52, width=18, text="输送线缓存位数量:").grid(column=0,
+ttk.Label(monty53, width=18, text="输送线缓存位数量:").grid(column=0,
                                                     row=25,
                                                     sticky='W')
-skutext27 = tkinter.Entry(monty52, width=18)
+skutext27 = tkinter.Entry(monty53, width=18)
 skutext27.insert(0, 10)
 skutext27.grid(column=1, row=25)
 
-ttk.Label(monty52, width=18, text="人的拣选位:").grid(column=0,
+ttk.Label(monty53, width=18, text="人的拣选位:").grid(column=0,
                                                  row=26,
                                                  sticky='W')
-skutext28 = tkinter.Entry(monty52, width=18)
+skutext28 = tkinter.Entry(monty53, width=18)
 skutext28.insert(0, 5)
 skutext28.grid(column=1, row=26)
 
 
-ttk.Label(monty52, width=18, text="使用卸料机的操作台:").grid(column=0,
+ttk.Label(monty53, width=18, text="使用卸料机的操作台:").grid(column=0,
                                                      row=27,
                                                      sticky='W')
-skutext29 = tkinter.Entry(monty52, width=18)
+skutext29 = tkinter.Entry(monty53, width=18)
 skutext29.insert(0, "1,2,3")
 skutext29.grid(column=1, row=27)
 

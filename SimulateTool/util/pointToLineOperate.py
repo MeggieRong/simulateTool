@@ -693,14 +693,30 @@ def chargeListFile(sourcePath):
     # 读取Excel文件,取出充电点
     readbook = xlrd.open_workbook(sourcePath)
     sheet = readbook.sheet_by_index(0)
+
+    # 获取全地图的x和y,去重并且各自做升序
+    xList = sorted(set(sheet.col_values(2)[1:]), reverse=False)
+    yList = sorted(set(sheet.col_values(3)[1:]), reverse=False)
+
+    def kubotTheta(x, y):
+        if x in xList[:2]:
+            theta = -3.14
+        elif x in xList[-2:]:
+            theta = 0
+        elif y in yList[:2]:
+            theta = 1.57
+        else:
+            theta = -1.57
+        return theta
+
     nrows = sheet.nrows
     for i in range(1, nrows):
         color = sheet.cell(i, 1).value
         if color == '白' or color == 'White':
             x = sheet.cell(i, 2).value
             y = sheet.cell(i, 3).value
-
-            xyDict.append({'x': x, 'y': y})
+            theta = kubotTheta(x, y)
+            xyDict.append({'x': x, 'y': y, 'theta': theta})
 
     return xyDict
 
@@ -719,7 +735,7 @@ def writeConfig(curpath, rows, cols):
                   default_flow_style=False, sort_keys=False)
 
 
-def writeCharge(curpath, xyDict, mostTheta):
+def writeCharge(curpath, xyDict):
     jsontext = {
         'rest-stations': [],
         'charge-stations': []
@@ -728,10 +744,11 @@ def writeCharge(curpath, xyDict, mostTheta):
     for i in xyDict:
         x = i['x']
         y = i['y']
+        theta = i['theta']
         positionDict = {
             'x': x,
             'y': y,
-            'theta': float(mostTheta)
+            'theta': theta
         }
 
         chargeDict = {
@@ -828,7 +845,6 @@ def writeStatePoints(spPath, curpath):
 
         # 方向坐标点
         txyPoint = pointList[1].strip('\n').split(';')
-        print(2, txyPoint)
         for j in txyPoint:
             txy = j.split(',')
             tx = float(txy[0])
