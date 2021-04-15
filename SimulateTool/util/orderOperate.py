@@ -100,7 +100,7 @@ def otherOrderSku(targetFile, sheet, nrows, ncols, intervalTime, interval):
         skuCsvList = []
         skuCsvList.append(skuCodeList.index(q) + 1)
         # skuCsvList.append(str(q)[:-2] + '\t')
-        skuCsvList.append(str(q)+ '\t')
+        skuCsvList.append(str(q) + '\t')
         writerSku.writerow(skuCsvList)
 
     orderFile.close()
@@ -226,8 +226,6 @@ def writeJDOrderSku(targetFile, sheet, nrows, ncols, intervalTime, interval, dea
         oTime = sheet.cell(i, oTimeID)
         ifMergeS = sheet.cell(i, ifMerge).value
 
-
-
         if oTime.ctype == 3:
             """
             python读取excel中单元格的内容返回的有5种类型。
@@ -272,6 +270,7 @@ def writeJDOrderSku(targetFile, sheet, nrows, ncols, intervalTime, interval, dea
     writer = csv.writer(orderFile)
     skuCodeList = set(skuCodeList)
     skuCodeList = list(skuCodeList)
+    print(orderDict)
     for k, v in orderDict.items():
         orderId = orderNoDict[k]
         cOrderId = k
@@ -282,7 +281,6 @@ def writeJDOrderSku(targetFile, sheet, nrows, ncols, intervalTime, interval, dea
 
         # 京东前4列赋值
         # 工单号三种情况
-
         if ifRecombine == 0:
             """
             不组单，工单号全为-1
@@ -295,7 +293,7 @@ def writeJDOrderSku(targetFile, sheet, nrows, ncols, intervalTime, interval, dea
             """
             if IfMergeKey == '合流':
                 workOrderId = -1
-            elif (IfMergeKey == '非合流') & (OrderQtt == 1):
+            elif OrderQtt == 1:
                 workOrderId = 1
             else:
                 workOrderId = 2

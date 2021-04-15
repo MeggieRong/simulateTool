@@ -1,4 +1,4 @@
-#coding:utf-8
+# coding:utf-8
 
 import codecs
 import csv
@@ -51,6 +51,8 @@ def locatPointSort(sourceFile, isRC):
     return hangsort
 
 # 四舍五入，精确到两位
+
+
 def floatRound(strNum):
     sourceNum = str(strNum)
     first = sourceNum.split('.')[0]
@@ -71,6 +73,8 @@ def floatRound(strNum):
     return fRNum
 
 # 坐标排序
+
+
 def locationsort(locationlist):
     hanglist = []
     for i in range(0, len(locationlist)):
@@ -79,11 +83,12 @@ def locationsort(locationlist):
 
     return sorted(hanglist)
 
+
 def strDevert(sdr):
     strconvert = ''
-    sdrlist=list(sdr)
+    sdrlist = list(sdr)
     if sdrlist[-1] == '0':
-        sdrlist=sdrlist[:-2]
+        sdrlist = sdrlist[:-2]
         strDevert(sdrlist)
 
     if sdrlist[-1] == '.':
@@ -93,6 +98,7 @@ def strDevert(sdr):
         strconvert += k
 
     return strconvert
+
 
 def createChanelList(sourceFile, channelType):
     pointdict = {}
@@ -136,6 +142,7 @@ def createChanelList(sourceFile, channelType):
 
     return hangsort
 
+
 def searchAllPoint(sourceFile):
     allPointList = []
 
@@ -150,6 +157,7 @@ def searchAllPoint(sourceFile):
             allPointList.append([x, y, isChannel])
 
     return allPointList
+
 
 def creatChannel(sourceFile, channelType, pointLength):
     channelDict = {}
@@ -192,6 +200,7 @@ def creatChannel(sourceFile, channelType, pointLength):
 
     return channelDict
 
+
 def strDevert(str):
     strconvert = ''
     sdrlist = list(str)
@@ -206,6 +215,7 @@ def strDevert(str):
         strconvert += k
 
     return strconvert
+
 
 def creatAdjacencyList(sourceFile, channelType, pointLength, yNoHorizontal, xNoVertical, ypNoHorizontal, xpNoVertical):
     # 所有坐标点分行、分列
@@ -262,9 +272,11 @@ def creatAdjacencyList(sourceFile, channelType, pointLength, yNoHorizontal, xNoV
                                     if str(x) == q[0][0] and str(y) == q[0][1] and str(hanglist[hanglist.index(x) + 1]) == q[1][0] and str(y) == q[1][1]:
                                         rightPoint = []
                                     else:
-                                        rightPoint = [hanglist[hanglist.index(x) + 1], y]
+                                        rightPoint = [
+                                            hanglist[hanglist.index(x) + 1], y]
                             else:
-                                rightPoint = [hanglist[hanglist.index(x) + 1], y]
+                                rightPoint = [
+                                    hanglist[hanglist.index(x) + 1], y]
                     elif x == hanglist[-1]:
                         if abs(hanglist[hanglist.index(x) - 1] - x) <= pointLength:
                             if len(ypNoHorizontal) != 0:
@@ -272,59 +284,74 @@ def creatAdjacencyList(sourceFile, channelType, pointLength, yNoHorizontal, xNoV
                                     if str(x) == q[1][0] and str(y) == q[1][1] and str(hanglist[hanglist.index(x) - 1]) == q[0][0] and str(y) == q[0][1]:
                                         leftPoint = []
                                     else:
-                                        leftPoint = [hanglist[hanglist.index(x) - 1], y]
+                                        leftPoint = [
+                                            hanglist[hanglist.index(x) - 1], y]
                             else:
-                                leftPoint = [hanglist[hanglist.index(x) - 1], y]
+                                leftPoint = [
+                                    hanglist[hanglist.index(x) - 1], y]
                     else:
                         if abs(x - hanglist[hanglist.index(x) - 1]) <= pointLength:
                             if len(ypNoHorizontal) != 0:
                                 for q in ypNoHorizontal:
                                     if str(x) == q[0][0] and str(y) == q[0][1] and str(hanglist[hanglist.index(x) + 1]) == q[1][0] and str(y) == q[1][1]:
                                         rightPoint = []
-                                        leftPoint = [hanglist[hanglist.index(x) - 1], y]
+                                        leftPoint = [
+                                            hanglist[hanglist.index(x) - 1], y]
                                     elif str(x) == q[1][0] and str(y) == q[1][1] and str(hanglist[hanglist.index(x) - 1]) == q[0][0] and str(y) == q[0][1]:
                                         if abs(hanglist[hanglist.index(x) + 1] - x) <= pointLength:
-                                            rightPoint = [hanglist[hanglist.index(x) + 1], y]
+                                            rightPoint = [
+                                                hanglist[hanglist.index(x) + 1], y]
                                         else:
                                             rightPoint = []
                                         leftPoint = []
                                     else:
                                         if abs(hanglist[hanglist.index(x) + 1] - x) <= pointLength:
-                                            rightPoint = [hanglist[hanglist.index(x) + 1], y]
+                                            rightPoint = [
+                                                hanglist[hanglist.index(x) + 1], y]
                                         else:
                                             rightPoint = []
-                                        leftPoint = [hanglist[hanglist.index(x) - 1], y]
+                                        leftPoint = [
+                                            hanglist[hanglist.index(x) - 1], y]
                             else:
                                 if abs(hanglist[hanglist.index(x) + 1] - x) <= pointLength:
-                                    rightPoint = [hanglist[hanglist.index(x) + 1], y]
+                                    rightPoint = [
+                                        hanglist[hanglist.index(x) + 1], y]
                                 else:
                                     rightPoint = []
-                                leftPoint = [hanglist[hanglist.index(x) - 1], y]
+                                leftPoint = [
+                                    hanglist[hanglist.index(x) - 1], y]
                         elif abs(x - hanglist[hanglist.index(x) + 1]) <= pointLength:
                             if len(ypNoHorizontal) != 0:
                                 for q in ypNoHorizontal:
                                     if str(x) == q[0][0] and str(y) == q[0][1] and str(hanglist[hanglist.index(x) + 1]) == q[1][0] and str(y) == q[1][1]:
                                         rightPoint = []
                                         if abs(hanglist[hanglist.index(x) - 1] - x) <= pointLength:
-                                            leftPoint = [hanglist[hanglist.index(x) - 1], y]
+                                            leftPoint = [
+                                                hanglist[hanglist.index(x) - 1], y]
                                         else:
                                             leftPoint = []
                                     elif str(x) == q[1][0] and str(y) == q[1][1] and str(hanglist[hanglist.index(x) - 1]) == q[0][0] and str(y) == q[0][1]:
-                                        rightPoint = [hanglist[hanglist.index(x) + 1], y]
+                                        rightPoint = [
+                                            hanglist[hanglist.index(x) + 1], y]
                                         if abs(hanglist[hanglist.index(x) - 1] - x) <= pointLength:
-                                            leftPoint = [hanglist[hanglist.index(x) - 1], y]
+                                            leftPoint = [
+                                                hanglist[hanglist.index(x) - 1], y]
                                         else:
                                             leftPoint = []
                                     else:
-                                        rightPoint = [hanglist[hanglist.index(x) + 1], y]
+                                        rightPoint = [
+                                            hanglist[hanglist.index(x) + 1], y]
                                         if abs(hanglist[hanglist.index(x) - 1] - x) <= pointLength:
-                                            leftPoint = [hanglist[hanglist.index(x) - 1], y]
+                                            leftPoint = [
+                                                hanglist[hanglist.index(x) - 1], y]
                                         else:
                                             leftPoint = []
                             else:
-                                rightPoint = [hanglist[hanglist.index(x) + 1], y]
+                                rightPoint = [
+                                    hanglist[hanglist.index(x) + 1], y]
                                 if abs(hanglist[hanglist.index(x) - 1] - x) <= pointLength:
-                                    leftPoint = [hanglist[hanglist.index(x) - 1], y]
+                                    leftPoint = [
+                                        hanglist[hanglist.index(x) - 1], y]
                                 else:
                                     leftPoint = []
 
@@ -343,9 +370,11 @@ def creatAdjacencyList(sourceFile, channelType, pointLength, yNoHorizontal, xNoV
                                         if str(x) == p[0][0] and str(y) == p[0][1] and str(x) == p[1][0] and str(lielist[lielist.index(y) + 1]) == p[1][1]:
                                             upPoint = []
                                         else:
-                                            upPoint = [x, lielist[lielist.index(y) + 1]]
+                                            upPoint = [
+                                                x, lielist[lielist.index(y) + 1]]
                                 else:
-                                    upPoint = [x, lielist[lielist.index(y) + 1]]
+                                    upPoint = [
+                                        x, lielist[lielist.index(y) + 1]]
                         elif y == lielist[-1]:
                             if abs(lielist[lielist.index(y) - 1] - y) <= pointLength:
                                 if len(xpNoVertical) != 0:
@@ -353,56 +382,70 @@ def creatAdjacencyList(sourceFile, channelType, pointLength, yNoHorizontal, xNoV
                                         if str(x) == p[1][0] and str(y) == p[1][1] and str(x) == p[0][0] and str(lielist[lielist.index(y) - 1]) == p[0][1]:
                                             downPoint = []
                                         else:
-                                            downPoint = [x, lielist[lielist.index(y) - 1]]
+                                            downPoint = [
+                                                x, lielist[lielist.index(y) - 1]]
                                 else:
-                                    downPoint = [x, lielist[lielist.index(y) - 1]]
+                                    downPoint = [
+                                        x, lielist[lielist.index(y) - 1]]
                         else:
                             if abs(y - lielist[lielist.index(y) - 1]) <= pointLength:
                                 if len(xpNoVertical) != 0:
                                     for p in xpNoVertical:
                                         if str(x) == p[0][0] and str(y) == p[0][1] and str(x) == p[1][0] and str(lielist[lielist.index(y) + 1]) == p[1][1]:
                                             upPoint = []
-                                            downPoint = [x, lielist[lielist.index(y) - 1]]
+                                            downPoint = [
+                                                x, lielist[lielist.index(y) - 1]]
                                         elif str(x) == p[1][0] and str(y) == p[1][1] and str(x) == p[0][0] and str(lielist[lielist.index(y) - 1]) == p[0][1]:
                                             if abs(lielist[lielist.index(y) + 1] - y) <= pointLength:
-                                                upPoint = [x, lielist[lielist.index(y) + 1]]
+                                                upPoint = [
+                                                    x, lielist[lielist.index(y) + 1]]
                                             else:
                                                 upPoint = []
                                             downPoint = []
                                         else:
                                             if abs(lielist[lielist.index(y) + 1] - y) <= pointLength:
-                                                upPoint = [x, lielist[lielist.index(y) + 1]]
+                                                upPoint = [
+                                                    x, lielist[lielist.index(y) + 1]]
                                             else:
                                                 upPoint = []
-                                            downPoint = [x, lielist[lielist.index(y) - 1]]
+                                            downPoint = [
+                                                x, lielist[lielist.index(y) - 1]]
                                 else:
                                     if abs(lielist[lielist.index(y) + 1] - y) <= pointLength:
-                                        upPoint = [x, lielist[lielist.index(y) + 1]]
+                                        upPoint = [
+                                            x, lielist[lielist.index(y) + 1]]
                                     else:
                                         upPoint = []
-                                    downPoint = [x, lielist[lielist.index(y) - 1]]
+                                    downPoint = [
+                                        x, lielist[lielist.index(y) - 1]]
                             elif abs(lielist[lielist.index(y) + 1] - y) <= pointLength:
                                 if len(xpNoVertical) != 0:
                                     for p in xpNoVertical:
                                         if str(x) == p[0][0] and str(y) == p[0][1] and str(x) == p[1][0] and str(lielist[lielist.index(y) + 1]) == p[1][1]:
                                             upPoint = []
                                             if abs(lielist[lielist.index(y) - 1] - y) <= pointLength:
-                                                downPoint = [x, lielist[lielist.index(y) - 1]]
+                                                downPoint = [
+                                                    x, lielist[lielist.index(y) - 1]]
                                             else:
                                                 downPoint = []
                                         elif str(x) == p[1][0] and str(y) == p[1][1] and str(x) == p[0][0] and str(lielist[lielist.index(y) - 1]) == p[0][1]:
-                                            upPoint = [x, lielist[lielist.index(y) + 1]]
+                                            upPoint = [
+                                                x, lielist[lielist.index(y) + 1]]
                                             downPoint = []
                                         else:
-                                            upPoint = [x, lielist[lielist.index(y) + 1]]
+                                            upPoint = [
+                                                x, lielist[lielist.index(y) + 1]]
                                             if abs(lielist[lielist.index(y) - 1] - y) <= pointLength:
-                                                downPoint = [x, lielist[lielist.index(y) - 1]]
+                                                downPoint = [
+                                                    x, lielist[lielist.index(y) - 1]]
                                             else:
                                                 downPoint = []
                                 else:
-                                    upPoint = [x, lielist[lielist.index(y) + 1]]
+                                    upPoint = [
+                                        x, lielist[lielist.index(y) + 1]]
                                     if abs(lielist[lielist.index(y) - 1] - y) <= pointLength:
-                                        downPoint = [x, lielist[lielist.index(y) - 1]]
+                                        downPoint = [
+                                            x, lielist[lielist.index(y) - 1]]
                                     else:
                                         downPoint = []
 
@@ -431,7 +474,8 @@ def creatAdjacencyList(sourceFile, channelType, pointLength, yNoHorizontal, xNoV
                                     if str(x) == p[0][0] and str(y) == p[0][1] and str(x) == p[1][0] and str(lielist[lielist.index(y) + 1]) == p[1][1]:
                                         upPoint = []
                                     else:
-                                        upPoint = [x, lielist[lielist.index(y) + 1]]
+                                        upPoint = [
+                                            x, lielist[lielist.index(y) + 1]]
                             else:
                                 upPoint = [x, lielist[lielist.index(y) + 1]]
                     elif y == lielist[-1]:
@@ -441,7 +485,8 @@ def creatAdjacencyList(sourceFile, channelType, pointLength, yNoHorizontal, xNoV
                                     if str(x) == p[1][0] and str(y) == p[1][1] and str(x) == p[0][0] and str(lielist[lielist.index(y) - 1]) == p[0][1]:
                                         downPoint = []
                                     else:
-                                        downPoint = [x, lielist[lielist.index(y) - 1]]
+                                        downPoint = [
+                                            x, lielist[lielist.index(y) - 1]]
                             else:
                                 downPoint = [x, lielist[lielist.index(y) - 1]]
                     else:
@@ -450,22 +495,27 @@ def creatAdjacencyList(sourceFile, channelType, pointLength, yNoHorizontal, xNoV
                                 for p in xpNoVertical:
                                     if str(x) == p[0][0] and str(y) == p[0][1] and str(x) == p[1][0] and str(lielist[lielist.index(y) + 1]) == p[1][1]:
                                         upPoint = []
-                                        downPoint = [x, lielist[lielist.index(y) - 1]]
+                                        downPoint = [
+                                            x, lielist[lielist.index(y) - 1]]
                                     elif str(x) == p[1][0] and str(y) == p[1][1] and str(x) == p[0][0] and str(lielist[lielist.index(y) - 1]) == p[0][1]:
                                         if abs(lielist[lielist.index(y) + 1] - y) <= pointLength:
-                                            upPoint = [x, lielist[lielist.index(y) + 1]]
+                                            upPoint = [
+                                                x, lielist[lielist.index(y) + 1]]
                                         else:
                                             upPoint = []
                                         downPoint = []
                                     else:
                                         if abs(lielist[lielist.index(y) + 1] - y) <= pointLength:
-                                            upPoint = [x, lielist[lielist.index(y) + 1]]
+                                            upPoint = [
+                                                x, lielist[lielist.index(y) + 1]]
                                         else:
                                             upPoint = []
-                                        downPoint = [x, lielist[lielist.index(y) - 1]]
+                                        downPoint = [
+                                            x, lielist[lielist.index(y) - 1]]
                             else:
                                 if abs(lielist[lielist.index(y) + 1] - y) <= pointLength:
-                                    upPoint = [x, lielist[lielist.index(y) + 1]]
+                                    upPoint = [
+                                        x, lielist[lielist.index(y) + 1]]
                                 else:
                                     upPoint = []
                                 downPoint = [x, lielist[lielist.index(y) - 1]]
@@ -485,9 +535,11 @@ def creatAdjacencyList(sourceFile, channelType, pointLength, yNoHorizontal, xNoV
                                         if str(x) == p[0][0] and str(y) == p[0][1] and str(hanglist[hanglist.index(x) + 1]) == p[1][0] and str(y) == p[1][1]:
                                             rightPoint = []
                                         else:
-                                            rightPoint = [hanglist[hanglist.index(x) + 1], y]
+                                            rightPoint = [
+                                                hanglist[hanglist.index(x) + 1], y]
                                 else:
-                                    rightPoint = [hanglist[hanglist.index(x) + 1], y]
+                                    rightPoint = [
+                                        hanglist[hanglist.index(x) + 1], y]
                         elif x == hanglist[-1]:
                             if abs(hanglist[hanglist.index(x) - 1] - x) <= pointLength:
                                 if len(ypNoHorizontal) != 0:
@@ -495,34 +547,42 @@ def creatAdjacencyList(sourceFile, channelType, pointLength, yNoHorizontal, xNoV
                                         if str(x) == p[1][0] and str(y) == p[1][1] and str(hanglist[hanglist.index(x) - 1]) == p[0][0] and str(y) == p[0][1]:
                                             leftPoint = []
                                         else:
-                                            leftPoint = [hanglist[hanglist.index(x) - 1], y]
+                                            leftPoint = [
+                                                hanglist[hanglist.index(x) - 1], y]
                                 else:
-                                    leftPoint = [hanglist[hanglist.index(x) - 1], y]
+                                    leftPoint = [
+                                        hanglist[hanglist.index(x) - 1], y]
                         else:
                             if abs(x - hanglist[hanglist.index(x) - 1]) <= pointLength:
                                 if len(ypNoHorizontal) != 0:
                                     for p in ypNoHorizontal:
                                         if str(x) == p[0][0] and str(y) == p[0][1] and str(hanglist[hanglist.index(x) + 1]) == p[1][0] and str(y) == p[1][1]:
                                             rightPoint = []
-                                            leftPoint = [hanglist[hanglist.index(x) - 1], y]
+                                            leftPoint = [
+                                                hanglist[hanglist.index(x) - 1], y]
                                         elif str(x) == p[1][0] and str(y) == p[1][1] and str(hanglist[hanglist.index(x) - 1]) == p[0][0] and str(y) == p[0][1]:
                                             if abs(hanglist[hanglist.index(x) + 1] - x) <= pointLength:
-                                                rightPoint = [hanglist[hanglist.index(x) + 1], y]
+                                                rightPoint = [
+                                                    hanglist[hanglist.index(x) + 1], y]
                                             else:
                                                 rightPoint = []
                                             leftPoint = []
                                         else:
                                             if abs(hanglist[hanglist.index(x) + 1] - x) <= pointLength:
-                                                rightPoint = [hanglist[hanglist.index(x) + 1], y]
+                                                rightPoint = [
+                                                    hanglist[hanglist.index(x) + 1], y]
                                             else:
                                                 rightPoint = []
-                                            leftPoint = [hanglist[hanglist.index(x) - 1], y]
+                                            leftPoint = [
+                                                hanglist[hanglist.index(x) - 1], y]
                                 else:
                                     if abs(hanglist[hanglist.index(x) + 1] - x) <= pointLength:
-                                        rightPoint = [hanglist[hanglist.index(x) + 1], y]
+                                        rightPoint = [
+                                            hanglist[hanglist.index(x) + 1], y]
                                     else:
                                         rightPoint = []
-                                    leftPoint = [hanglist[hanglist.index(x) - 1], y]
+                                    leftPoint = [
+                                        hanglist[hanglist.index(x) - 1], y]
 
                 # 添加坐标点到行坐标
                 if len(upPoint) != 0:
@@ -536,7 +596,7 @@ def creatAdjacencyList(sourceFile, channelType, pointLength, yNoHorizontal, xNoV
 
             pointAdjcList[x, y, channelID] = linePointList
         else:
-            print('坐标点：{} 重复'.format([x,y]))
+            print('坐标点：{} 重复'.format([x, y]))
             continue
 
     coverPoint = len(pointAdjcList)
@@ -547,13 +607,15 @@ def creatAdjacencyList(sourceFile, channelType, pointLength, yNoHorizontal, xNoV
     # print('方案源文件共有坐标点：{} 个，转换成功：{} 个，重复坐标点：{} 个'.format(count, coverPoint, (count-coverPoint)))
     return pointAdjcList, pInfo
 
+
 def searchChannelId(point, channelDict):
     channelId = 0
-    for k,v in channelDict.items():
+    for k, v in channelDict.items():
         if v[0][0] <= float(point[0]) <= v[1][0] and v[0][1] <= point[1] <= v[1][1]:
             channelId = k
 
     return channelId
+
 
 def writerFiles(channelDict, adjacencyList, targetFile):
     adjacencyPath = targetFile + r'\adjacency_list.in'
@@ -568,7 +630,9 @@ def writerFiles(channelDict, adjacencyList, targetFile):
             channelStarty = v[0][1]
             channelEndx = v[1][0]
             channelEndy = v[1][1]
-            channelLine = str(k) + ',' + str(channelFlag) + ':' + str(channelStartx) + ',' + str(channelStarty) + ',' + str(channelEndx) + ',' + str(channelEndy)
+            channelLine = str(k) + ',' + str(channelFlag) + ':' + str(channelStartx) + \
+                ',' + str(channelStarty) + ',' + \
+                str(channelEndx) + ',' + str(channelEndy)
 
             f.write(channelLine)
             f.write('\n')
@@ -586,12 +650,15 @@ def writerFiles(channelDict, adjacencyList, targetFile):
             pointx = m[0]
             pointy = m[1]
             channelId = m[2]
-            adjacencyLine = str(pointx) + ',' + str(pointy) + ',' + str(channelId) + ':'
+            adjacencyLine = str(pointx) + ',' + str(pointy) + \
+                ',' + str(channelId) + ':'
             for adValue in n:
                 if adValue != n[-1]:
-                    adjacencyLine = adjacencyLine + str(adValue[0]) + ',' + str(adValue[1]) + ';'
+                    adjacencyLine = adjacencyLine + \
+                        str(adValue[0]) + ',' + str(adValue[1]) + ';'
                 else:
-                    adjacencyLine = adjacencyLine + str(adValue[0]) + ',' + str(adValue[1])
+                    adjacencyLine = adjacencyLine + \
+                        str(adValue[0]) + ',' + str(adValue[1])
 
             fi.write(adjacencyLine)
             fi.write('\n')
@@ -604,17 +671,21 @@ def writerFiles(channelDict, adjacencyList, targetFile):
             pointx = m[0]
             pointy = m[1]
             channelId = m[2]
-            adjacencyCsvLine = str(pointx) + ',' + str(pointy) + ',' + str(channelId) + ':'
+            adjacencyCsvLine = str(pointx) + ',' + \
+                str(pointy) + ',' + str(channelId) + ':'
             for adValue in n:
                 if adValue != n[-1]:
-                    adjacencyCsvLine = adjacencyCsvLine + str(adValue[0]) + ',' + str(adValue[1]) + ';'
+                    adjacencyCsvLine = adjacencyCsvLine + \
+                        str(adValue[0]) + ',' + str(adValue[1]) + ';'
                 else:
-                    adjacencyCsvLine = adjacencyCsvLine + str(adValue[0]) + ',' + str(adValue[1])
+                    adjacencyCsvLine = adjacencyCsvLine + \
+                        str(adValue[0]) + ',' + str(adValue[1])
 
             file.write(adjacencyCsvLine)
             file.write('\n')
 
     file.close()
+
 
 def chargeListFile(sourcePath):
     xyDict = []
@@ -633,6 +704,7 @@ def chargeListFile(sourcePath):
 
     return xyDict
 
+
 def writeConfig(curpath, rows, cols):
     configDict = {
         'rows': rows,
@@ -643,27 +715,29 @@ def writeConfig(curpath, rows, cols):
 
     # 写入到yaml文件
     with open(yamlpath, "w", encoding="utf-8") as f:
-        yaml.dump(configDict, f, allow_unicode=True, default_flow_style=False, sort_keys=False)
+        yaml.dump(configDict, f, allow_unicode=True,
+                  default_flow_style=False, sort_keys=False)
+
 
 def writeCharge(curpath, xyDict, mostTheta):
     jsontext = {
-                    'rest-stations': [],
-                    'charge-stations':[]
-                }
+        'rest-stations': [],
+        'charge-stations': []
+    }
     # 为他赋值，任何你要存的值，我这里是遍历了一下我的dataframe
     for i in xyDict:
         x = i['x']
         y = i['y']
         positionDict = {
-                            'x': x,
-                            'y': y,
-                            'theta': mostTheta
-                        }
+            'x': x,
+            'y': y,
+            'theta': float(mostTheta)
+        }
 
         chargeDict = {
-                        'position':positionDict,
-                        'kubotId': -1
-                        }
+            'position': positionDict,
+            'kubotId': -1
+        }
 
         jsontext['charge-stations'].append(chargeDict)
 
@@ -674,6 +748,7 @@ def writeCharge(curpath, xyDict, mostTheta):
     f = open(chargePath, 'w')
     f.write(jsondata)
     f.close()
+
 
 def writeLocations(locDir, locationInfo, sourcePath, curpath):
     getXYDict = []
@@ -711,10 +786,12 @@ def writeLocations(locDir, locationInfo, sourcePath, curpath):
         for k in dirList:
             for j in range(0, int(folowNums)):
                 heightNum = int(firstHeightNum) + j * int(folowHeight)
-                locationRows = [numFlag, x, y, heightNum, k, numFlag, 1, isShallow]
+                locationRows = [numFlag, x, y,
+                                heightNum, k, numFlag, 1, isShallow]
                 writer.writerow(locationRows)
                 numFlag += 1
     f.close()
+
 
 def writeQrCode(qrFilePath, curpath):
     qrCodeList = []
@@ -729,6 +806,7 @@ def writeQrCode(qrFilePath, curpath):
         writer.writerow(j)
 
     f.close()
+
 
 def writeStatePoints(spPath, curpath):
     f = open(spPath, 'r')
@@ -750,7 +828,7 @@ def writeStatePoints(spPath, curpath):
 
         # 方向坐标点
         txyPoint = pointList[1].strip('\n').split(';')
-        print(2,txyPoint)
+        print(2, txyPoint)
         for j in txyPoint:
             txy = j.split(',')
             tx = float(txy[0])
@@ -768,7 +846,7 @@ def writeStatePoints(spPath, curpath):
         if isXDir == 1:
             statePosition = {}
             statePosition['state id'] = idFlag
-            statePosition['state position'] = {'theta': 0.0, 'x':x, 'y':y}
+            statePosition['state position'] = {'theta': 0.0, 'x': x, 'y': y}
             jsontext.append(statePosition)
             idFlag += 1
 
@@ -797,6 +875,7 @@ def writeStatePoints(spPath, curpath):
     f = open(chargePath, 'w')
     f.write(jsondata)
     f.close()
+
 
 def writeOthers(curpath):
     kubotFile = os.path.join(curpath, "./kubot.csv")

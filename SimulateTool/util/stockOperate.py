@@ -1,4 +1,4 @@
-#coding:utf-8
+# coding:utf-8
 
 import math
 import random
@@ -295,7 +295,6 @@ def writeMaxNums(skuNums, locationList, floatWide, maxNums):
             binId = random.randint(0, len(locationList))
             binCode = locationList[binId]
             del locationList[binId]
-
             stockList.append([binCode, k, v])
 
     return stockList

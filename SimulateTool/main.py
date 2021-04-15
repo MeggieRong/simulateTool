@@ -400,7 +400,7 @@ def fileConvert2():
     pointLength = infoText44.get()
     configRows = skutext49.get()
     configCols = skutext410.get()
-    mostTheta = float(skutext411.get())
+    mostTheta = skutext411.get()
     firstHeight = skutext412.get()
     comHeight = skutext413.get()
     flowNums = skutext414.get()
