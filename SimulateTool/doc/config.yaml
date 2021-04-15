@@ -1,0 +1,166 @@
+# System Config
+## Log
+kLogRoot: '../log/'
+kLogDir: 'simulator/'
+kLogMaxSizeMB: 10240
+## Redis Config
+kRedisHostname: '127.0.0.1'
+kRedisPort: 6379
+
+# Run Case Config
+kConfiguration: 'NJ_JD'
+kIsJDNormal: false
+Remove Empty Bin: false
+
+## Conveyor Config
+Conveyor Return Bin: true
+Conveyor Cache Location Number: 12
+Conveyor Pick Location: 6
+Is Load Unload Port At Conveyor Main Line: false
+Conveyor Load Port Location: [12]
+Conveyor Unload Port Location: [1]
+Conveyor Move One Location Time: 1.0
+Conveyor Move One Location Along Side Direction Time: 3.5
+Conveyor Model Status Update Time Gap: 0.1
+Kubot Need To Load Its Own Bin: false
+Speed Up Times For Load Unload At Conveyor: 1.32792
+
+## MC algorithm
+Max Crossing Station Number: 1
+Max Kubot Quantity For Each Destination: 4
+One Bin Can At Most Used At One Destination: true
+Check Bin Cross Static Allocation Under New Conveyor Station Case: false
+
+Bin Picking Models:
+  - Model ID: 1
+    Bin Picking Model Type: 'Normal' # Available Model Type: Fixed-Time, Normal
+    # Fixed-Time
+    Bin Picking Fixed Time: 1
+    # Normal:
+    # Bin picking time = Sum of all SKU picking time
+    # SKU picking time = fixed-picking time + fixed-scanning time +
+    #                    pay order num * pay order coefficient +
+    #                    Max(min-picking time, item num * pick item num coefficient)
+    Fixed Picking Time Per SKU: 1
+    Fixed Scanning Time Per SKU: 1
+    Min Picking Time Per SKU: 0.0
+    Pay Order Coefficient: 4
+    Pick Item Number Coefficient: 0.8
+    Remove Empty Bin Time: 3.0
+
+Station Picking Model: # Model ID: [Station 1, Station 2, ...]
+  1: [1, 2, 3, 4, 5]
+
+# 机器人在货架取放货的姿态， 0: 背篓朝右; 1: 背篓朝上; 2: 背篓朝左; 3: 背篓朝下
+# 当货架平行于X轴，只能选0, 2; 当货架平行于Y轴，只能选1, 3
+Kubot Operation Orientation: 2
+
+HaiPort:
+  haiport stations: []
+  conveyor height: 0.7777778
+  status update time gap: 0.1
+  loading speed: 0.2
+  unloading speed: 0.33333333333
+  movement speed: 0.5
+  lifting speed: 4.44444
+  buffer number: 0
+
+## Simulator Config
+ViewingMode: true
+kFastSimTime: 600
+kPlaybackSpeed: 5
+kSimRunTime: -1
+kUsingOldGUI: false
+kDebugMode: false
+
+kTestKubots: 25
+Kubot Init Position File: '' # default: ../data/${CASE_NAME}/kubot.txt
+Inventory File: '' # default: ../data/${CASE_NAME}/inv.csv
+Order File: '' # default: ../data/${CASE_NAME}/order.csv
+Inbound Order File: '' # default: ../data/${CASE_NAME}/inbound_order.csv
+Location File: '' # default: ../data/${CASE_NAME}/locations.csv
+Adjacency List File: '' # default: ../data/${CASE_NAME}/adjacency_list.in
+ChannelEE File: '' # default: ../data/${CASE_NAME}/channelEE.txt
+State Point File: '' # default: ../data/${CASE_NAME}/state_points.json
+Station Config File: '' # default: ../data/${CASE_NAME}/station_config.json
+Group Reservation File: '' # default: ../data/${CASE_NAME}/group_map.json
+Rest Station File: '' # default: ../data/${CASE_NAME}/rest_stations.json
+Map Modifier File: '' # default: ../data/${CASE_NAME}/map_modifier.json
+Waiting Positions File: '' # default: ../data/${CASE_NAME}/waiting_positions.json
+Force Multi-Item Order: true
+Order Limit: -1
+Kubot Tray Number: 6
+kOrderDispatchGap: 7200 # Unit: sec
+kIsDoubleDeep: false
+
+#Manual Dispatch Orders: # Format: Station ID: [Order 1, Order 2, ...]
+
+# Model Config
+## Kubot Dimentions
+Kubot Length: 1.6 # Unit: m
+Kubot Width: 1.0 # Unit: m
+Kubot Rotation Diameter: 1.6 # Unit: m
+Kubot Tray Gap: 450.0 # Unit: mm
+Kubot First Tray Height: 400 # Unit: mm
+## Chassis Model Parameters
+kKubotMaxLinearSpeedMetersPerSecond: 1.8
+kKubotAccelerationMetersPerSecondSquared: 0.6
+kKubotDecelerationMetersPerSecondSquared: 0.7
+kChassisRotation90DegreeTime: 3.2
+kFirstRange: 3.2
+kSecondRange: 1.4
+kKDist: 0.52
+kKVShort: 0.5
+## Fork Model Parameters
+kExternalLoadingTime: 9.0
+kExternalUnloadingTime: 8.0
+kInternalLoadingTime: 4.0
+kInternalUnloadingTime: 4.0
+kExternalDeepLoadingTime: 10.2
+kExternalDeepUnloadingTime: 10.2
+kForkVelocity: 0.5
+kForkLoadedUpwardVelocity: 0.5
+kForkMoveStartingTime: 1.0
+kForkRotation90DegreeTime: 2.0
+## Algorithm Run Time
+kKubotOutputTimeGap: 0.02
+kInvokePpTimeGap: 0.1
+kPpRunTime: 0.001
+kInvokeMCAlgoTimeGap: 0.5
+kRunMCAlgoTime: 0.1
+kTryDispatchOrderTimeGap: 1.0
+kPickingRunTime: 0.1
+kClusteringRunTime: 3.0 # TODO reconsider this
+
+# Two map points in +/- 0.10 meters are considered same.
+kMapPointEpsilon: 0.10
+# Two directions in +/- 5 degrees(0.0872665 radian) are considered same.
+kThetaEpsilon: 0.0872665
+kDoubleEpsilon: 0.06
+
+# Kubot related data.
+kKubotDefaultForkOrientation: 0
+kKubotDefaultForkHeight: 0
+# The minimum distance between physical boundaries of any two Kubots
+kSafeDistanceMeters: 0.059
+kTryCountWhenExternalBinTaskFailed: 3
+kAdvanceExecutionDistanceLimit: 5.0 # Executing internal bin inst when moving. Distance is manhattan distance.
+
+kPowerDangerLimitPercent: 30
+kPowerLowLimitPercent: 80
+kPowerFullLimitPercent: 95
+kPowerEnoughLimitPercent: 50
+
+# Assumes the robot can run 5.5 hours with full battery.
+kMaxWorkingSecond: 21600999999999 # 6 hours * 3600 s/h
+# Assumes it take 60 minutes to charge to full.
+kFullChargingSecond: 3600 # 60 minutes * 60 s/m
+
+# Map related.
+# The distance used to find conflicting sids.
+# Ideally this should be same as kKubotRotationDiameter.
+kAdjMapPointRange: 1.8
+
+# Algorithm related.
+# Currently available solver: Dijkstra, SIPP
+kPathPlanningSolver: 'Dijkstra'

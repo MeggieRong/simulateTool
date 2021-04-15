@@ -624,6 +624,14 @@ skutext28.insert(0, 5)
 skutext28.grid(column=1, row=26)
 
 
+ttk.Label(monty52, width=18, text="使用卸料机的操作台:").grid(column=0,
+                                                     row=27,
+                                                     sticky='W')
+skutext29 = tkinter.Entry(monty52, width=18)
+skutext29.insert(0, "1,2,3")
+skutext29.grid(column=1, row=27)
+
+
 def clickMe4():
     curPath = path_
     configName = skutext22.get()
@@ -648,6 +656,7 @@ def clickMe4():
     kubotIfCharge = str(skutext26.get())
     conveyerBinCacheNum = skutext27.get()
     staffPickLocation = skutext28.get()
+    useHaiportStation = skutext29.get()
     stationConfig = [stationNums, slotNum, slotLimit]
     stationList = [
         stationNums, modelType, fixedTime, fixedPick, fixedScann,
@@ -656,7 +665,7 @@ def clickMe4():
 
     yamlUpdate(curPath, configName, tarPath, kubotNums, trayNums,
                fluctuateNums, fluctuateNumsStep, robotTheta, stationList,
-               kubotIfCharge, conveyerBinCacheNum, staffPickLocation)
+               kubotIfCharge, conveyerBinCacheNum, staffPickLocation, useHaiportStation)
 
 
 action = tkinter.Button(monty542, text="生成参数", command=clickMe4)

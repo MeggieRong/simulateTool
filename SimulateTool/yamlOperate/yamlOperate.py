@@ -8,19 +8,26 @@ from util.updateFile import copy_dirs, kubotFile, del_file, stationFile
 # 简单转格式
 
 
-def stringListConvertIntoInt(listdemo):
+def stringListConvertIntofloat(listdemo):
     listdemo = listdemo.split(',')
     listdemo = [float(i) for i in listdemo]
     return listdemo
 
 
-def yamlUpdate(curPath, configName, tarPath, kubotNums, trayNums, fluctuateNums, fluctuateNumsStep, robotTheta, stationList, kubotIfCharge, conveyerBinCacheNum, staffPickLocation):
+def stringListConvertIntoInt(listdemo2):
+    listdemo2 = listdemo2.split(',')
+    listdemo2 = [float(i) for i in listdemo2]
+    return listdemo2
+
+
+def yamlUpdate(curPath, configName, tarPath, kubotNums, trayNums, fluctuateNums, fluctuateNumsStep, robotTheta, stationList, kubotIfCharge, conveyerBinCacheNum, staffPickLocation, useHaiportStation):
     # 复制配置文件
     cpPath = curPath + '2'
     copy_dirs(curPath, cpPath)
 
     # 读取配置文件
-    filePath = os.path.join(curPath, configName)
+    # filePath = os.path.join(curPath, configName)
+    filePath = os.path.join(os.getcwd(), 'SimulateTool', 'doc', 'config.yaml')
     f = open(filePath, 'r', encoding='utf-8')
     cfg = f.read()
 
@@ -56,7 +63,7 @@ def yamlUpdate(curPath, configName, tarPath, kubotNums, trayNums, fluctuateNums,
 
             # 修改機器人是否正常充放電
             if kubotIfCharge == 'yes':
-                pass
+                d['kMaxWorkingSecond'] = 21600
             else:
                 d['kMaxWorkingSecond'] = 2160099999999
 
@@ -77,6 +84,19 @@ def yamlUpdate(curPath, configName, tarPath, kubotNums, trayNums, fluctuateNums,
             d['Min Picking Time Per SKU'] = stationList[5]
             d['Pay Order Coefficient'] = stationList[6]
             d['Pick Item Number Coefficient'] = stationList[7]
+
+            # 使用卸料机的操作台
+            stationHaiportDict = {
+                'haiport stations': stringListConvertIntoInt(useHaiportStation),
+                'conveyor height': 0.7777778,
+                'status update time gap': 0.1,
+                'loading speed': 0.2,
+                'unloading speed': 0.33333333333,
+                'movement speed': 0.5,
+                'lifting speed': 4.44444,
+                'buffer number': 0
+            }
+            d['haiport stations'] = stationHaiportDict
 
             # 操作台休息是時間
             if not d.__contains__('Operator Break Starting Time'):
