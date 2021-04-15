@@ -14,7 +14,7 @@ def stringListConvertIntoInt(listdemo):
     return listdemo
 
 
-def yamlUpdate(curPath, configName, tarPath, kubotNums, trayNums, fluctuateNums, fluctuateNumsStep, robotTheta, stationList, kubotIfCharge):
+def yamlUpdate(curPath, configName, tarPath, kubotNums, trayNums, fluctuateNums, fluctuateNumsStep, robotTheta, stationList, kubotIfCharge, conveyerBinCacheNum, staffPickLocation):
     # 复制配置文件
     cpPath = curPath + '2'
     copy_dirs(curPath, cpPath)
@@ -59,6 +59,12 @@ def yamlUpdate(curPath, configName, tarPath, kubotNums, trayNums, fluctuateNums,
                 pass
             else:
                 d['kMaxWorkingSecond'] = 2160099999999
+
+            # 修改输送线缓存
+            d['Conveyor Cache Location Number'] = int(conveyerBinCacheNum)
+
+            # 修改人拣选位置
+            d['Conveyor Pick Location'] = int(staffPickLocation)
 
             # 修改操作台参数
             d['Bin Picking Model Type'] = stationList[1]

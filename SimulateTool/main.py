@@ -16,7 +16,6 @@ win = tk.Tk()
 
 win.title("SimulateTool")
 win.resizable(1059, 762)
-win.geometry("500x600+700+300")
 tabControl = ttk.Notebook(win)
 
 tab1 = ttk.Frame(tabControl)
@@ -587,6 +586,7 @@ skutext26 = tkinter.Entry(monty52, width=18)
 skutext26.insert(0, 'yes')
 skutext26.grid(column=1, row=23)
 
+
 ttk.Label(monty52, width=18, text="浮动范围的步长:").grid(column=0,
                                                    row=24,
                                                    sticky='W')
@@ -607,6 +607,21 @@ ttk.Label(monty53, width=18, text="操作台休息结束时间点").grid(column=
 skutext25 = tkinter.Entry(monty53, width=18)
 skutext25.insert(0, '7,13.5,19')
 skutext25.grid(column=1, row=15)
+
+
+ttk.Label(monty52, width=18, text="输送线缓存位数量:").grid(column=0,
+                                                    row=25,
+                                                    sticky='W')
+skutext27 = tkinter.Entry(monty52, width=18)
+skutext27.insert(0, 10)
+skutext27.grid(column=1, row=25)
+
+ttk.Label(monty52, width=18, text="人的拣选位:").grid(column=0,
+                                                 row=26,
+                                                 sticky='W')
+skutext28 = tkinter.Entry(monty52, width=18)
+skutext28.insert(0, 5)
+skutext28.grid(column=1, row=26)
 
 
 def clickMe4():
@@ -631,6 +646,8 @@ def clickMe4():
     slotNum = int(skutext19.get())
     slotLimit = int(skutext20.get())
     kubotIfCharge = str(skutext26.get())
+    conveyerBinCacheNum = skutext27.get()
+    staffPickLocation = skutext28.get()
     stationConfig = [stationNums, slotNum, slotLimit]
     stationList = [
         stationNums, modelType, fixedTime, fixedPick, fixedScann,
@@ -639,7 +656,7 @@ def clickMe4():
 
     yamlUpdate(curPath, configName, tarPath, kubotNums, trayNums,
                fluctuateNums, fluctuateNumsStep, robotTheta, stationList,
-               kubotIfCharge)
+               kubotIfCharge, conveyerBinCacheNum, staffPickLocation)
 
 
 action = tkinter.Button(monty542, text="生成参数", command=clickMe4)
