@@ -27,7 +27,7 @@ def yamlUpdate(curPath, configName, tarPath, kubotNums, trayNums, fluctuateNums,
 
     # 读取配置文件
     # filePath = os.path.join(curPath, configName)
-    filePath = os.path.join(os.getcwd(), 'SimulateTool', 'doc', 'config.yaml')
+    filePath = os.path.join(os.getcwd(), 'doc', 'config.yaml')
     f = open(filePath, 'r', encoding='utf-8')
     cfg = f.read()
 
